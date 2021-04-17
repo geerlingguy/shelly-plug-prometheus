@@ -1,5 +1,7 @@
 # Shelly Plug Prometheus Exporter
 
+TODO: GA STATUS
+
 I am a simple man.
 
 I have a [Shelly Plug](https://shelly.cloud/products/shelly-plug-us-smart-home-automation-device/). I don't want to flash a different firmware on it just to get a Prometheus endpoint. Though I might do it someday if I'm not lazy.
