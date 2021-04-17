@@ -26,11 +26,9 @@ jobs:
             -v "$PWD":/var/www/html \
             php:8-apache
 
-      - name: See Docker container.
-        run: docker ps
-
-      - name: Test that we're getting the expected result.
-        run: curl http://localhost:9924/metrics
+      - name: Inspect Docker container.
+        run: >
+          sleep 3 && docker ps
 
       - name: Test that we're getting the expected result.
         run: curl http://localhost:9924/metrics | grep "Could not resolve host"
