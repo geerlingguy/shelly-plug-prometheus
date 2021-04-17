@@ -1,6 +1,6 @@
 # Shelly Plug Prometheus Exporter
 
-TODO: GA STATUS
+[![CI](https://github.com/geerlingguy/shelly-plug-prometheus/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/geerlingguy/shelly-plug-prometheus/actions/workflows/ci.yml)
 
 I am a simple man.
 
