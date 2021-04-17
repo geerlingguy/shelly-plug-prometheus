@@ -2,7 +2,7 @@
 
 I am a simple man.
 
-I have a Shelly Plug. I don't want to flash a different firmware on it just to get a Prometheus endpoint. Though I might do it someday if I'm not lazy.
+I have a [Shelly Plug](https://shelly.cloud/products/shelly-plug-us-smart-home-automation-device/). I don't want to flash a different firmware on it just to get a Prometheus endpoint. Though I might do it someday if I'm not lazy.
 
 I want a Prometheus endpoint where I can scrape metrics for the Shelly Plug.
 
@@ -57,7 +57,7 @@ If you run the script outside of Docker, make sure you set the necessary environ
 After it's running, test that it's working with `curl`:
 
 ```
-$ curl http://localhost:9924
+$ curl http://localhost:9924/metrics
 # HELP power Current real AC power being drawn, in Watts
 # TYPE power gauge
 power 91.81

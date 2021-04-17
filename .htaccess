@@ -1,0 +1,4 @@
+# For our purposes this is fine. It lets us have an extensionless PHP file
+# respond at /metrics, but this is a dumb idea if you're building anything
+# resembling a 'real' application!
+SetHandler application/x-httpd-php
