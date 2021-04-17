@@ -27,4 +27,7 @@ jobs:
             php:8-apache
 
       - name: Test that we're getting the expected result.
-        run: curl http://localhost:9924/
+        run: curl http://localhost:9924/metrics
+
+      - name: Test that we're getting the expected result.
+        run: curl http://localhost:9924/metrics | grep "Could not resolve host"
