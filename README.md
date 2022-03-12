@@ -73,6 +73,11 @@ total 24239
 
 If you get an error, check your environment variables and make sure they're correct, and make sure the Docker container (and the host it's on) can access your Shelly Plug over HTTP!
 
+#### Optional environment variables
+If you have a second generation Shelly (i.e. a relay with a "plus" in the name) you will need to set `SHELLY_GENERATION=2`. For the first generation (non "plus") you can set that to 1 or simply leave it unset.
+
+If you have a relay with multiple switches, such as a PM2, then you can use the `SHELLY_SWITCH_ID` variable to choose which one you want to poll (i.e. `SHELLY_SWITCH_ID=1`). Count starts from 0, all single switch relays only have a switch with id 0.
+
 ## License
 
 MIT.

@@ -6,47 +6,31 @@
 
 # Environment variables.
 $hostname = getenv('SHELLY_HOSTNAME');
-$username = getenv('SHELLY_HTTP_USERNAME');
-$password = getenv('SHELLY_HTTP_PASSWORD');
 
-$url = 'http://' . $hostname . '/meter/0';
+# For shelly "plus" branded relays, set this to "2", otherwise, specify "1" (or don't specify at all)
+$generation = getenv('SHELLY_GENERATION');
 
-$curl = curl_init();
+# Some shelly relays have multiple switches (such as the 2PM), this allows you to select which one you want
+# This can be left on the default of "0" for any relays that only have a single switch (such as the shelly plug or shelly 1PM)
+$switch_id = getenv('SHELLY_SWITCH_ID');
 
-# Basic HTTP Authentication (if set).
-if (!empty($username) && !empty($password)) {
-  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-  curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+if ($generation === false) {
+  $generation = 1;
 }
 
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-# Call the URL with curl.
-$result = curl_exec($curl);
-if (curl_errno($curl)) {
-  $error_message = curl_error($curl);
-}
-curl_close($curl);
-
-# Handle errors.
-if (isset($error_message)) {
-  echo 'Error: ' . $error_message;
-  return;
+if ($switch_id === false) {
+  $switch_id = 0;
 }
 
-# Parse Shelly Plug's JSON payload and return metrics.
-$results = json_decode($result);
+# For simplicity's sake, I've broken up the two different api accesses into different files for my own peace of mind
+switch ($generation) {
+  case 1:
+    require "shellygen1";
+    break;
+
+  case 2:
+    require "shellygen2";
+    break;
+}
 
 ?>
-# HELP power Current real AC power being drawn, in Watts
-# TYPE power gauge
-power <?php print $results->power; ?>
-
-# HELP is_valid Whether power metering self-checks OK
-# TYPE is_valid gauge
-is_valid <?php print $results->is_valid; ?>
-
-# HELP total Total energy consumed by the attached electrical appliance in Watt-minute
-# TYPE total gauge
-total <?php print $results->total; ?>

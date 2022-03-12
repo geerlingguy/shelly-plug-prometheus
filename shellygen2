@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * This is terrible. But it is simple and works. So it shall be.
+ */
+
+$url = "http://$hostname/rpc/Switch.GetStatus?id=$switch_id";
+
+# The username is hardcoded in the second generation, not sure if that'll change in future
+$username = "admin";
+$password = getenv('SHELLY_HTTP_PASSWORD');
+
+$curl = curl_init();
+
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+if (isset($password)) {
+  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
+  curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+}
+
+$result = curl_exec($curl);
+
+if (curl_errno($curl)) {
+  $error_message = curl_error($curl);
+}
+
+curl_close($curl);
+
+# Handle errors.
+if (isset($error_message)) {
+  echo 'Error: ' . $error_message;
+  return;
+}
+
+# Parse Shelly Plug's JSON payload and return metrics.
+$results = json_decode($result);
+
+?>
+# HELP power Current real AC power being drawn, in Watts
+# TYPE power gauge
+power <?php print $results->apower; ?>
+
+# HELP is_valid Whether power metering self-checks OK
+# TYPE is_valid gauge
+is_valid <?php print !isset($results->errors) && empty($results->errors); ?>
+
+# HELP total Total energy consumed by the attached electrical appliance in Watt-minute
+# TYPE total gauge
+total <?php print $results->aenergy->total; ?>
