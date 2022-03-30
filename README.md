@@ -46,9 +46,9 @@ services:
     ports:
       - "9924:80"
     environment:
-      SHELLY_HOSTNAME='my-shelly-plug-host-or-ip'
-      SHELLY_HTTP_USERNAME='username'
-      SHELLY_HTTP_PASSWORD='password'
+      - SHELLY_HOSTNAME=my-shelly-plug-host-or-ip
+      - SHELLY_HTTP_USERNAME=username
+      - SHELLY_HTTP_PASSWORD=password
     volumes:
       - './:/var/www/html'
     restart: unless-stopped
@@ -72,6 +72,10 @@ total 24239
 ```
 
 If you get an error, check your environment variables and make sure they're correct, and make sure the Docker container (and the host it's on) can access your Shelly Plug over HTTP!
+
+## Grafana Dashboard
+https://github.com/geerlingguy/internet-monitoring/blob/master/grafana/provisioning/dashboards/power-consumption.json
+
 
 ## License
 
