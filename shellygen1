@@ -6,6 +6,9 @@
 
 $url = 'http://' . $hostname . '/meter/' . $switch_id;
 
+$username = getenv('SHELLY_HTTP_USERNAME');
+$password = getenv('SHELLY_HTTP_PASSWORD');
+
 $curl = curl_init();
 
 # Basic HTTP Authentication (if set).
