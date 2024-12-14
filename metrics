@@ -23,6 +23,7 @@ if ($switch_id === false) {
 }
 
 # For simplicity's sake, I've broken up the two different api accesses into different files for my own peace of mind
+header("Content-Type: text/plain");
 switch ($generation) {
   case 1:
     require "shellygen1";
